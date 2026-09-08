@@ -11,3 +11,8 @@ from telegram import Update
 from telegram.ext import Application, ContextTypes, MessageHandler, filters
 
 load_dotenv()
+
+TELEGRAM_BOT_KEY = os.environ.get("TELGRAM_BOT_KEY")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GOOGLE_SHEET_NAME = "Jimmy's Financial logs"
+SERVICE_ACCOUNT_FILE = "service_account.json"  
