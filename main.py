@@ -33,3 +33,31 @@ dengan format persis: {{"kategori": string, "nominal": number, "deskripsi": stri
 Balas HANYA JSON, tanpa penjelasan apapun, tanpa markdown code block.
 
 Pesan: {message_text}"""
+
+
+def call_gemini(message_text: str, maximal_attempt: int = 3) -> dict:
+    prompt = SYSTEM_PROMPT.format(message_text=message_text)
+
+    for attempt in range(1, maximal_attempt + 1):
+        try:
+            response = client.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt
+            )
+
+            raw_text = response.text.strip()
+
+            if raw_text is None:
+                raise ValueError("Gemini returns an empty response")
+
+            if raw_text.startswith('```'):
+                raw_text = raw_text.strip("`").replace("json", "", 1).strip()
+
+            return json.loads(raw_text)
+
+        except Exception as e:
+            if "503" in str(e) and attempt < maximal_attempt:
+                logger.warning(f"Gemini sedang sibuk, coba lagi ({attempt}/{maximal_attempt})...")
+                time.sleep(2 * attempt)
+                continue
+            raise
