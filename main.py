@@ -78,3 +78,12 @@ def get_sheet():
         creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=scopes)
     client = gspread.authorize(creds)
     return client.open(GOOGLE_SHEET_NAME).worksheet("Sheet2")
+
+def save_sheet(data: dict):
+    sheet = get_sheet()
+    sheet.append_row([
+        datetime.now().strftime("%Y-%m-%d %H:%M"),
+        data.get("kategori", ""),
+        data.get("nominal", 0),
+        data.get("deskripsi", "")
+    ])
