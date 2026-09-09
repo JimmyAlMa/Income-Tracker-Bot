@@ -87,3 +87,31 @@ def save_sheet(data: dict):
         data.get("nominal", 0),
         data.get("deskripsi", "")
     ])
+
+
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text_message = update.message.text
+
+    try:
+        data = call_gemini(text)
+
+        save_sheet(data)
+
+        reply = (
+            f"Tercatat\n"
+            f"Kategori: {data['kategori']}\n"
+            f"Nominal: {data['nominal']}\n"
+            f"Deskripsi: {data['deskripsi']}"
+        )
+        await update.message.reply_text(reply)
+
+    except json.JSONDecodeError:
+        await update.message.reply_text(
+            "Maaf, aku nggak berhasil paham pesan itu sebagai catatan keuangan. "
+            "Coba tulis ulang, misalnya: 'makan siang 25rb'"
+        )
+
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        await update.message.reply_text(f"Error: {e}")
