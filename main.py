@@ -16,3 +16,11 @@ TELEGRAM_BOT_KEY = os.environ.get("TELGRAM_BOT_KEY")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GOOGLE_SHEET_NAME = "Jimmy's Financial logs"
 SERVICE_ACCOUNT_FILE = "service_account.json"  
+
+logging.basicConfig(
+    level=logging.INFO,
+    filename='app.log',
+    filemode='a',
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
