@@ -96,7 +96,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text_message = update.message.text
 
     try:
-        data = call_gemini(text)
+        data = call_gemini(text_message)
 
         save_sheet(data)
 
