@@ -13,7 +13,7 @@ from telegram.ext import Application, ContextTypes, MessageHandler, filters
 
 load_dotenv()
 
-TELEGRAM_BOT_KEY = os.environ.get("TELGRAM_BOT_KEY")
+TELEGRAM_BOT_KEY = os.environ.get("TELEGRAM_BOT_KEY")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GOOGLE_SHEET_NAME = "Jimmy's Financial logs"
 SERVICE_ACCOUNT_FILE = "service_account.json"  
@@ -119,7 +119,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"Error: {e}")
 
 def main():
-    print(f"DEBUG panjang token: {len(TELEGRAM_BOT_KEY) if TELEGRAM_BOT_KEY else 'KOSONG/None'}")
     app = Application.builder().token(TELEGRAM_BOT_KEY).build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
