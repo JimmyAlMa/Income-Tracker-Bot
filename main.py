@@ -63,7 +63,8 @@ def call_gemini(message_text: str, maximal_attempt: int = 3) -> dict:
                 continue
             raise
 
-
+# TELEGRAM_BOT_KEY
+# TELEGRAM_BOT_TOKEN
 
 def get_sheet():
     scopes = [
@@ -125,7 +126,7 @@ def main():
 
     external_url = os.environ.get("RENDER_EXTERNAL_URL")
 
-    webhook_url = f"{external_url}/{TELEGRAM_BOT_TOKEN}"
+    webhook_url = f"{external_url}/{TELEGRAM_BOT_KEY}"
 
     logger.info(f"Menjalankan bot via webhook: {webhook_url}")
     app.run_webhook(
