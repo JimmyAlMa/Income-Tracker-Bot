@@ -119,6 +119,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"Error: {e}")
 
 def main():
+    print(f"DEBUG panjang token: {len(TELEGRAM_BOT_KEY) if TELEGRAM_BOT_KEY else 'KOSONG/None'}")
     app = Application.builder().token(TELEGRAM_BOT_KEY).build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
